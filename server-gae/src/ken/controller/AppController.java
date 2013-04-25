@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import ken.page.IOSSoyPageGenerator;
 import ken.page.SoyPageGenerator;
+import ken.page.factory.SoyPageGeneratorFactory;
 import ken.platform.AppConfig;
 import ken.platform.AppConfig;
 import ken.platform.PlatformType;
@@ -25,28 +26,10 @@ public class AppController {
 		this.appConfig = appConfig;
 		this.userParameters = userParameters;
 		
-//		if (appConfig.getPlatform().equals(PlatformType.IPHONE.getPlatFormType())) {
-//			
-//			pageGenerator = new IOSSoyPageGenerator(IOS_TEMPLATE_MAIN);
-//			System.out.print("place holder 1");
-//			//to do
-//		} else {
-//			System.out.print("No matched paltform, define as normal browser!");
-//			pageGenerator = new SoyPageGenerator(NORMAL_TEMPLATE_MAIN);
-//		}
 	}
 	
 	public String doGenerate() {
-		SoyPageGenerator pageGenerator;
-		System.out.println("platform : " + PlatformType.IPHONE);
-		if (appConfig.getPlatform().equals(PlatformType.IPHONE.getPlatFormType())) {
-			//temperary method
-			pageGenerator = new IOSSoyPageGenerator(appId, sid, appConfig.isAjaxMode(), appConfig, userParameters);
-			System.out.print("place holder 1");
-		} else {
-			System.out.println("No matched paltform, define as normal browser!");
-			pageGenerator = new SoyPageGenerator(appId, sid, appConfig.isAjaxMode(), appConfig, userParameters);
-		}
+		SoyPageGenerator pageGenerator = SoyPageGeneratorFactory.getGenerator(appConfig, appId, sid, userParameters);
 		return pageGenerator.generatePage();
 	}
 }

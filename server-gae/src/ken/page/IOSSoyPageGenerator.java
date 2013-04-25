@@ -8,8 +8,8 @@ import com.google.template.soy.data.SoyMapData;
 
 public class IOSSoyPageGenerator extends SoyPageGenerator {
 
-	public IOSSoyPageGenerator(String appId, String sid, boolean ajax, AppConfig config, HashMap<String, String> userParameter) {
-		super(appId, sid, ajax, config, userParameter);
+	public IOSSoyPageGenerator(String appId, String sid, AppConfig config, HashMap<String, String> userParameter) {
+		super(appId, sid, config, userParameter);
 	}
 
 	@Override

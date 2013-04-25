@@ -30,10 +30,10 @@ public class SoyPageGenerator {
 	private AppConfig config;
 	private HashMap<String, String> userParameter;
 	
-	public SoyPageGenerator(String appId, String sid, boolean ajax, AppConfig config, HashMap<String, String> userParameter) {
+	public SoyPageGenerator(String appId, String sid, AppConfig config, HashMap<String, String> userParameter) {
 		this.appId = appId;
 		this.screenId = sid;
-		this.ajax = ajax;
+		this.ajax = config.isAjaxMode();
 		this.config = config;
 		this.userParameter = userParameter;
 		
