@@ -1,0 +1,48 @@
+@import "default_bon.css";
+* {
+	font-family: 'BMWTypeRegular';
+}
+
+html {
+	background-color: #000000;
+	color: #FFFFFF;
+}
+
+body {
+	background-color: #000000;
+	margin: 0px;
+	height: 100%;
+}
+
+div#consoleForTesting {
+	padding: 2px;
+	margin-top: 5px;
+	width: 1030px;
+	background-color: black;
+}
+
+div#consoleForTesting * {
+	font-size: 16px;
+	color: #FFFFFF;
+}
+
+div#consoleForTesting a {
+	color: #FC3C00;
+	text-decoration: none;
+}
+
+div#consoleForTesting a:focus {
+	color: #80B0DC;
+}
+
+.halfline,.halfline div {
+	line-height: 20px;
+	height: 30px;
+}
+
+.halfline select{
+	display: inline;
+}
+.halfline  option{
+	display: block;
+}

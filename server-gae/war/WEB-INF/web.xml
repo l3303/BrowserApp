@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns="http://java.sun.com/xml/ns/javaee"
+xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
+	<servlet>
+		<servlet-name>Hello</servlet-name>
+		<servlet-class>ken.servlet.HelloServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Hello</servlet-name>
+		<url-pattern>/hello_world</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>AppServlet</servlet-name>
+		<servlet-class>ken.servlet.AppServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AppServlet</servlet-name>
+		<url-pattern>/services/ken/app/</url-pattern>
+	</servlet-mapping>
+	
+	<filter>
+        <filter-name>platformFilter</filter-name>
+        <filter-class>ken.filter.PlatformFilter</filter-class>
+    </filter>
+    <filter-mapping>
+		<filter-name>platformFilter</filter-name>
+		<url-pattern>/services/ken/app/*</url-pattern>
+	</filter-mapping>
+	<filter>
+        <filter-name>userParametersFilter</filter-name>
+        <filter-class>ken.filter.UserParametersFilter</filter-class>
+    </filter>
+    <filter-mapping>
+		<filter-name>userParametersFilter</filter-name>
+		<url-pattern>/services/ken/app/*</url-pattern>
+	</filter-mapping>
+	
+	
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+	</welcome-file-list>
+</web-app>
