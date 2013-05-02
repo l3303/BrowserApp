@@ -1,0 +1,67 @@
+{
+	"header": {
+		"id":"flightStatus",
+		"mainpage":"main_menu",
+		"icon":"flight.png"
+	},
+	
+	"screens": {
+	
+		"flights_list": {
+			"template": ["flightsList","c0"],
+			"geocoding":false,
+			"production": {
+				"source":"http://dong-bmwctre-tst.appspot.com/flight-status/",
+				"parameter": {
+					"action":"flightsList"
+				}
+			},
+			"integration": {
+				"source":"${bmwapps.baseUrl}/flight-status/",
+				"parameter": {
+					"action":"flightsList"
+				}
+			},
+			"linking": {
+			    "detail":"detailInfo"
+			}
+		},
+		
+		"main_menu": {
+			"template": ["flightsMainMenu","c0"],
+			"geocoding":false,
+			"production": {
+				"source":"http://dong-bmwctre-tst.appspot.com/flight-status/",
+				"parameter": {
+					"action":"main"
+				}
+			},
+			"integration": {
+				"source":"${bmwapps.baseUrl}/flight-status/",
+				"parameter": {
+					"action":"main"
+				}
+			},
+			"linking": {
+			    "enterList":"flights_list"
+			}
+		},
+		
+		"detailInfo": {
+		    "template": ["flightsDetailInfo","c0"],
+		    "geocoding":false,
+		    "production": {
+		        "source":"http://dong-bmwctre-tst.appspot.com/flight-status/",
+		        "prarmeter": {
+		            "action":"detail"
+		        }
+		    },
+		    "integration": {
+				"source":"${bmwapps.baseUrl}/flight-status/",
+				"parameter": {
+					"action":"detail"
+				}
+			}
+		}
+	}
+}

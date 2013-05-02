@@ -32,8 +32,8 @@ public class AppServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		
-		final String appId = (String) req.getAttribute(APP_ID);
-		final String sid = (String) req.getAttribute(SCREEN_ID);
+		final String appId = (String) req.getParameter(APP_ID);
+		final String sid = (String) req.getParameter(SCREEN_ID);
 		final AppConfig appConfig = (AppConfig) req.getAttribute(APP_CONFIG);
 		final HashMap<String, String> userParameters = (HashMap<String, String>) req.getAttribute(USER_PARAMETERS);
 		

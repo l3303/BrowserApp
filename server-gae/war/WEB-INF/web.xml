@@ -20,6 +20,15 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<servlet-name>AppServlet</servlet-name>
 		<url-pattern>/services/ken/app/</url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<servlet-name>DataImportServlet</servlet-name>
+		<servlet-class>ken.datastore.servlet.DataImportServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DataImportServlet</servlet-name>
+		<url-pattern>/services/ken/admin/</url-pattern>
+	</servlet-mapping>
+	
 	
 	<filter>
         <filter-name>platformFilter</filter-name>

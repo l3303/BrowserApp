@@ -1,3 +1,7 @@
 server-gae/war/WEB-INF/classes/
 RemoteSystemsTempFiles/
-
+.classpath
+.project
+datastore-adapter/bin/
+datastore-adapter/.settings/
+server-gae/war/WEB-INF/appengine-generated/

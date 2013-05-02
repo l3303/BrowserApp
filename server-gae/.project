@@ -48,4 +48,11 @@
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>org.eclipse.wst.common.project.facet.core.nature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>src.datasotre</name>
+			<type>2</type>
+			<location>/Users/liuken3303/Documents/BrowserApp/datastore-adapter/src</location>
+		</link>
+	</linkedResources>
 </projectDescription>
