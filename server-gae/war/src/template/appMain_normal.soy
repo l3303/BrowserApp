@@ -1,14 +1,22 @@
 {namespace ken.cloudsdk}
 
 /**
- * @param content
+ * @param cssFiles
+ * @param jsFiles
  */
 {template .appMain_normal}
 	<html>
 		<head>
+			<meta charset="UTF-8">
+  			{foreach $cssFile in $cssFiles}
+				<link rel="stylesheet" type="text/css" href="{$cssFile}" />
+			{/foreach}
+			{foreach $jsFile in $jsFiles}
+            	<script type="text/javascript" src="{$jsFile}"></script>
+       		{/foreach}  
 		</head>
 		<body>
-			<div>{$content}<div>
+			css js test!!!
 		</body>
 	</html>
 {/template}

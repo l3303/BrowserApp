@@ -7,6 +7,7 @@ import java.util.Map;
 
 import ken.platform.AppConfig;
 import ken.server.content.ContentManager;
+import ken.server.environment.RuntimeSystem;
 
 import com.google.template.soy.SoyFileSet;
 import com.google.template.soy.SoyFileSet.Builder;
@@ -17,8 +18,6 @@ import com.google.template.soy.tofu.SoyTofu.Renderer;
 
 public class SoyPageGenerator {
 	
-	private static final String DEFAULT_MAIN_PAGE = "appMain_normal";
-	private static final String TEMPLATE_PATH = "src/template/";
 	private static final String RESOURCE_PATH = "src/lib/";
 	private static final String SOY_NAMESPACE = "ken.cloudsdk.";
 	
@@ -29,13 +28,15 @@ public class SoyPageGenerator {
 	private SoyTofu tofu;
 	private AppConfig config;
 	private HashMap<String, String> userParameter;
+	private RuntimeSystem runtimeSystem;
 	
-	public SoyPageGenerator(String appId, String sid, AppConfig config, HashMap<String, String> userParameter) {
+	public SoyPageGenerator(String appId, String sid, AppConfig config, HashMap<String, String> userParameter, RuntimeSystem runtimeSystem) {
 		this.appId = appId;
 		this.screenId = sid;
 		this.ajax = config.isAjaxMode();
 		this.config = config;
 		this.userParameter = userParameter;
+		this.runtimeSystem = runtimeSystem;
 		
 		Builder builder = new SoyFileSet.Builder();
 		builder.add(MainpageFactory.getMainpageFile(this.getClass()));
@@ -57,10 +58,11 @@ public class SoyPageGenerator {
 	public String generatePage() {
 		Renderer renderer = tofu.newRenderer(SOY_NAMESPACE + templateName);
 		
-		String mainPageString = generateContent();
-		SoyMapData mainPageData = new SoyMapData("content", mainPageString);
+		SoyMapData mainPageData = new SoyMapData();
 		
 		if (ajax) {
+			String content = generateContent();
+			mainPageData.put("content", content);
 			renderer.setData(mainPageData);
 			String page = renderer.render();
 			System.out.println("recognized ajax mode!!");
@@ -88,19 +90,27 @@ public class SoyPageGenerator {
 	
 	protected SoyListData generateJavaScript() {
 		SoyListData jsFiles = new SoyListData();
-		jsFiles.add(RESOURCE_PATH + "javascript/jquery.min.js",
-					RESOURCE_PATH + "javascript/nbt.js",
-					RESOURCE_PATH + "javascript/logger.js",
-					RESOURCE_PATH + "javascript/nessieNbtUtils_v1.js");
+		jsFiles.add(getResourcePath() + "javascript/jquery.min.js",
+					getResourcePath() + "javascript/nbt.js",
+					getResourcePath() + "javascript/logger.js",
+					getResourcePath() + "javascript/nessieNbtUtils_v1.js");
 		return jsFiles;
 	}
 	
 	protected SoyListData generateCss() {
 		SoyListData cssFiles = new SoyListData();
-		cssFiles.add(RESOURCE_PATH + "css/nbt.css",
-					RESOURCE_PATH + "css/simulator.css",
-					RESOURCE_PATH + "css/default_bon.css",
-					RESOURCE_PATH + "css/nbt_1024.css");
+		cssFiles.add(getResourcePath() + "css/nbt.css",
+					getResourcePath() + "css/simulator.css",
+					getResourcePath() + "css/default_bon.css",
+					getResourcePath() + "css/nbt_1024.css");
 		return cssFiles;
+	}
+	
+	private String getBaseUrl() {
+		return runtimeSystem.getProtocol() + runtimeSystem.getBaseUrl();
+	}
+	
+	private String getResourcePath() {
+		return getBaseUrl() + "/" + RESOURCE_PATH;
 	}
 }

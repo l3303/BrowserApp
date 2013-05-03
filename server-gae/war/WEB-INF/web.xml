@@ -39,6 +39,14 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<url-pattern>/services/ken/app/*</url-pattern>
 	</filter-mapping>
 	<filter>
+        <filter-name>environmentFilter</filter-name>
+        <filter-class>ken.filter.EnvironmentFilter</filter-class>
+    </filter>
+    <filter-mapping>
+		<filter-name>environmentFilter</filter-name>
+		<url-pattern>/services/ken/app/*</url-pattern>
+	</filter-mapping>
+	<filter>
         <filter-name>appManifestFilter</filter-name>
         <filter-class>ken.filter.AppManifestFilter</filter-class>
     </filter>
