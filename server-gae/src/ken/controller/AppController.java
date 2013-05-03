@@ -10,15 +10,11 @@ import ken.platform.AppConfig;
 import ken.platform.PlatformType;
 
 public class AppController {
-	
-//	 private SoyPageGenerator pageGenerator;
+
 	private String appId;
 	private String sid;
 	private AppConfig appConfig;
 	private HashMap<String, String> userParameters;
-	
-//	private static final String NORMAL_TEMPLATE_MAIN = "appMain_normal";
-//	private static final String IOS_TEMPLATE_MAIN = "appMain_ios";
 
 	public AppController(String appId, String sid, AppConfig appConfig, HashMap<String, String> userParameters) {
 		this.appId =appId;

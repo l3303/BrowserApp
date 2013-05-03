@@ -44,7 +44,12 @@ public class SoyPageGenerator {
 		 * TODO:
 		 * get templateName according appId & screenId
 		 * */
-		templateName = "appMain_normal";
+		
+		if (ajax) {
+			
+		} else {
+			templateName = "appMain_normal";
+		}
 		
 		tofu = builder.build().compileToTofu();
 	}

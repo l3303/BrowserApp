@@ -40,8 +40,8 @@ public class AppConfigurationBE implements Serializable {
 		this.appId = appId;
 	}
 
-	public Text getManifest() {
-		return manifest;
+	public String getManifest() {
+		return manifest.getValue();
 	}
 
 	public void setManifest(String manifest) {
