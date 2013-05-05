@@ -9,7 +9,6 @@
 	
 		"flights_list": {
 			"template": "flightsList",
-			"geocoding":false,
 			"production": {
 				"source":"http://dong-bmwctre-tst.appspot.com/flight-status/",
 				"parameter": {
@@ -21,15 +20,11 @@
 				"parameter": {
 					"action":"flightsList"
 				}
-			},
-			"linking": {
-			    "detail":"detailInfo"
 			}
 		},
 		
 		"main_menu": {
-			"template": ["flightsMainMenu","c0"],
-			"geocoding":false,
+			"template": "flightsMainMenu",
 			"production": {
 				"source":"http://dong-bmwctre-tst.appspot.com/flight-status/",
 				"parameter": {
@@ -41,18 +36,14 @@
 				"parameter": {
 					"action":"main"
 				}
-			},
-			"linking": {
-			    "enterList":"flights_list"
 			}
 		},
 		
 		"detailInfo": {
-		    "template": ["flightsDetailInfo","c0"],
-		    "geocoding":false,
+		    "template": "flightsDetailInfo",
 		    "production": {
 		        "source":"http://dong-bmwctre-tst.appspot.com/flight-status/",
-		        "prarmeter": {
+		        "parameter": {
 		            "action":"detail"
 		        }
 		    },

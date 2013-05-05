@@ -39,7 +39,7 @@ public class AppServlet extends HttpServlet {
 		final HashMap<String, String> userParameters = (HashMap<String, String>) req.getAttribute(FilterConstants.PARAM_USER_PARAMETERS);
 		final RuntimeSystem runtimeSystem = (RuntimeSystem) req.getAttribute(FilterConstants.PARAM_RUNTIME_SYSTEM);
 		
-//		LOG.info("ajax mode in app servlet: " + appConfig.isAjaxMode());
+		LOG.info("ajax mode in app servlet: " + appConfig.isAjaxMode());
 		LOG.info("get manifest from req: " + manifest);
 		
 		PrintWriter writer = resp.getWriter();

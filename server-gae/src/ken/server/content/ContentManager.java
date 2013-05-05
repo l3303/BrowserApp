@@ -15,7 +15,7 @@ public class ContentManager {
 	private String sid;
 	private JSONObject manifest;
 	
-	public ContentManager(RuntimeSystem runtimeSystem, String sid, JSONObject manifest) {
+	public ContentManager(RuntimeSystem runtimeSystem,String appId, String sid, JSONObject manifest) {
 		this.runtimeSystem = runtimeSystem;
 		this.appId = appId;
 		this.sid = sid;

@@ -5,6 +5,7 @@ import java.net.MalformedURLException;
 import java.util.HashMap;
 import java.util.Map;
 
+import ken.datastore.manifest.ManifestAdapter;
 import ken.platform.AppConfig;
 import ken.server.content.ContentManager;
 import ken.server.environment.RuntimeSystem;
@@ -42,7 +43,6 @@ public class SoyPageGenerator {
 		this.manifest = manifest;
 		
 		Builder builder = new SoyFileSet.Builder();
-		builder.add(MainpageFactory.getMainpageFile(this.getClass()));
 		
 		/*
 		 * TODO:
@@ -50,8 +50,16 @@ public class SoyPageGenerator {
 		 * */
 		
 		if (ajax) {
-			
+			ManifestAdapter adapter = new ManifestAdapter(manifest);
+			try {
+				templateName = adapter.getTemplate(sid);
+				System.out.println("start to initialize file: " + templateName);
+				builder.add(PageFactory.getTemplateFile(templateName));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		} else {
+			builder.add(PageFactory.getMainpageFile(this.getClass()));
 			templateName = "appMain_normal";
 		}
 		
@@ -82,7 +90,7 @@ public class SoyPageGenerator {
 	
 	protected String generateContent() {
 //		return new SoyMapData("content", "normal soy template content!!!!by ken!!!");
-		ContentManager manager = new ContentManager(runtimeSystem, screenId, manifest);
+		ContentManager manager = new ContentManager(runtimeSystem, appId, screenId, manifest);
 		try {
 			return manager.getContentMap(userParameter);
 		} catch (Exception e) {
