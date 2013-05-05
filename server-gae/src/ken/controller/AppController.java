@@ -2,6 +2,8 @@ package ken.controller;
 
 import java.util.HashMap;
 
+import com.google.appengine.labs.repackaged.org.json.JSONObject;
+
 import ken.page.IOSSoyPageGenerator;
 import ken.page.SoyPageGenerator;
 import ken.page.factory.SoyPageGeneratorFactory;
@@ -17,17 +19,19 @@ public class AppController {
 	private AppConfig appConfig;
 	private HashMap<String, String> userParameters;
 	private RuntimeSystem runtimeSystem;
+	private JSONObject manifest;
 	
-	public AppController(String appId, String sid, AppConfig appConfig, HashMap<String, String> userParameters, RuntimeSystem runtimeSystem) {
+	public AppController(String appId, String sid, AppConfig appConfig, HashMap<String, String> userParameters, RuntimeSystem runtimeSystem, JSONObject manifest) {
 		this.appId =appId;
 		this.sid = sid;
 		this.appConfig = appConfig;
 		this.userParameters = userParameters;
 		this.runtimeSystem = runtimeSystem;
+		this.manifest = manifest;
 	}
 	
 	public String doGenerate() {
-		SoyPageGenerator pageGenerator = SoyPageGeneratorFactory.getGenerator(appConfig, appId, sid, userParameters, runtimeSystem);
+		SoyPageGenerator pageGenerator = SoyPageGeneratorFactory.getGenerator(appConfig, appId, sid, userParameters, runtimeSystem, manifest);
 		return pageGenerator.generatePage();
 	}
 }

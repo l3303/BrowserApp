@@ -9,6 +9,7 @@ import ken.platform.AppConfig;
 import ken.server.content.ContentManager;
 import ken.server.environment.RuntimeSystem;
 
+import com.google.appengine.labs.repackaged.org.json.JSONObject;
 import com.google.template.soy.SoyFileSet;
 import com.google.template.soy.SoyFileSet.Builder;
 import com.google.template.soy.data.SoyListData;
@@ -29,14 +30,16 @@ public class SoyPageGenerator {
 	private AppConfig config;
 	private HashMap<String, String> userParameter;
 	private RuntimeSystem runtimeSystem;
+	private JSONObject manifest;
 	
-	public SoyPageGenerator(String appId, String sid, AppConfig config, HashMap<String, String> userParameter, RuntimeSystem runtimeSystem) {
+	public SoyPageGenerator(String appId, String sid, AppConfig config, HashMap<String, String> userParameter, RuntimeSystem runtimeSystem, JSONObject manifest) {
 		this.appId = appId;
 		this.screenId = sid;
 		this.ajax = config.isAjaxMode();
 		this.config = config;
 		this.userParameter = userParameter;
 		this.runtimeSystem = runtimeSystem;
+		this.manifest = manifest;
 		
 		Builder builder = new SoyFileSet.Builder();
 		builder.add(MainpageFactory.getMainpageFile(this.getClass()));
@@ -79,7 +82,7 @@ public class SoyPageGenerator {
 	
 	protected String generateContent() {
 //		return new SoyMapData("content", "normal soy template content!!!!by ken!!!");
-		ContentManager manager = new ContentManager(config, appId, screenId);
+		ContentManager manager = new ContentManager(runtimeSystem, screenId, manifest);
 		try {
 			return manager.getContentMap(userParameter);
 		} catch (Exception e) {

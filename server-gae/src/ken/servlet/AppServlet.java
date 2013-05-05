@@ -44,7 +44,7 @@ public class AppServlet extends HttpServlet {
 		
 		PrintWriter writer = resp.getWriter();
 		try {
-			AppController controller = new AppController(appId, sid, appConfig, userParameters, runtimeSystem);
+			AppController controller = new AppController(appId, sid, appConfig, userParameters, runtimeSystem, manifest);
 			String page = controller.doGenerate();
 			
 			

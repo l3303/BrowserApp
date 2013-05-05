@@ -4,15 +4,17 @@ import com.google.appengine.labs.repackaged.org.json.JSONException;
 import com.google.appengine.labs.repackaged.org.json.JSONObject;
 
 import ken.datastore.PersistenceAdapter;
+import ken.datastore.manifest.ManifestJsonFormator;
+import ken.datastore.manifest.ManifestValidator;
 import ken.datastore.model.AppConfigurationBE;
 
 public class DatastoreAPI {
 	
-	public static AppConfigurationBE importManifest(String manifest, boolean overwrite) throws JSONException {
+	public static AppConfigurationBE importManifest(String manifest, boolean overwrite) throws Exception {
 		System.out.println("[pManifest=" + manifest + "][pOverwrite=" + overwrite + "]");
 
 		// parse app configuration
-		JSONObject manifestJson = new JSONObject(manifest);
+		JSONObject manifestJson = ManifestJsonFormator.formatToJson(manifest);
 		
 		final String appId = manifestJson.getJSONObject("header").getString("id");
 

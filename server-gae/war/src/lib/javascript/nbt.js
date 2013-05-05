@@ -56,7 +56,7 @@ $(document).ready(function() {
 });
 
 var initApp = function() {
-	I18N.init();
+//	I18N.init();
 	addNBTEventListener();
 	EFIHelper.init();
 	PM.init();
@@ -1035,7 +1035,7 @@ var PM = {
 					elewidth = element.width();
 					testwidth = tempDiv.width() + 30;
 				} while (testwidth > elewidth);
-				element.text(text + '…');
+				element.text(text + '...');
 			}
 		} catch (e) {
 			LOG.error(e);
@@ -1568,7 +1568,7 @@ $.extend($.expr[':'], {
 				var prev = selected.prevVisibleActionElement();
 				if (prev.length) {
 					selected.switchSelected(prev);
-					// scrolling if bottom of view is reached´, plus offset
+					// scrolling if bottom of view is reached, plus offset
 					if (!prev.isTopVisible(-Config.scrollHeight)) {
 						this.removeScrollHeight();
 					}
@@ -1651,7 +1651,7 @@ $.extend($.expr[':'], {
 
 				if (next.length) {
 					selected.switchSelected(next);
-					// scrolling if bottom of view is reached´, plus offset
+					// scrolling if bottom of view is reached, plus offset
 					if (!next.isBottomVisible(-Config.scrollHeight)) {
 						this.addScrollHeight();
 					}

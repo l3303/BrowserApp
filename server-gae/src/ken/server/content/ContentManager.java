@@ -6,19 +6,20 @@ import java.util.Map;
 import com.google.appengine.labs.repackaged.org.json.JSONObject;
 
 import ken.platform.AppConfig;
+import ken.server.environment.RuntimeSystem;
 
 public class ContentManager {
 	
-	private AppConfig config;
+	private RuntimeSystem runtimeSystem;
 	private String appId;
+	private String sid;
 	private JSONObject manifest;
 	
-	public ContentManager(AppConfig config, String appId, String sid) {
-		this.config = config;
+	public ContentManager(RuntimeSystem runtimeSystem, String sid, JSONObject manifest) {
+		this.runtimeSystem = runtimeSystem;
 		this.appId = appId;
-		
-		/* get manifest through appid*/
-		manifest = null;
+		this.sid = sid;
+		this.manifest = manifest;
 	}
 	
 	public String getContentMap(Map<String, String> userParameter) throws Exception {
