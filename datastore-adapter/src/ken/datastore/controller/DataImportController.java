@@ -57,7 +57,6 @@ public class DataImportController {
 	
 	private void importJS(File jsFile) {
 		final ByteArrayOutputStream out = new ByteArrayOutputStream();
-//		File jsFile = new File(path);
 		try {
 			InputStream in = new FileInputStream(jsFile);
 			final int bufferSize = 1024;
@@ -70,6 +69,15 @@ public class DataImportController {
 			
 			in.close();
 			out.close();
+//			BufferedReader in = new BufferedReader(new FileReader(jsFile));
+//			StringBuffer input = new StringBuffer();
+//			String line = null;
+//			while ((line = in.readLine()) != null) {
+//				input.append(line);
+//			}
+//			in.close();
+//			
+//			byte[] data = (new String(input)).getBytes();
 			
 			JavaScriptBE js = DatastoreAPI.importJavaScript(jsFile.getName(), appId, out.toByteArray(), true);
 		} catch (Exception e) {

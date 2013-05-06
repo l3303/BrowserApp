@@ -3,6 +3,7 @@
 /**
  * @param cssFiles
  * @param jsFiles
+ * @param jsData
  */
 {template .appMain_normal}
 	<html>
@@ -13,10 +14,17 @@
 			{/foreach}
 			{foreach $jsFile in $jsFiles}
             	<script type="text/javascript" src="{$jsFile}"></script>
-       		{/foreach}  
+       		{/foreach}
+       		{foreach $jsName in keys($jsData)}
+	            <script type="text/javascript" id="{$jsName}">
+//	            	{$jsData[$jsName]|noAutoescape}
+					{$jsData[$jsName].js}
+	            </script>
+        	{/foreach} 
 		</head>
 		<body>
 			css js test!!!
+			<a onclick="change()">click</a>
 		</body>
 	</html>
 {/template}

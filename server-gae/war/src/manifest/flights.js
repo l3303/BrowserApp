@@ -1,1 +1,4 @@
-//just test if this js can upload
+
+function change() {
+	document.write("execute successfully!!!");
+}

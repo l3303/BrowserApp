@@ -1,11 +1,15 @@
 package ken.page;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import ken.datastore.PersistenceAdapter;
 import ken.datastore.manifest.ManifestAdapter;
+import ken.datastore.model.JavaScriptBE;
 import ken.platform.AppConfig;
 import ken.server.content.ContentManager;
 import ken.server.environment.RuntimeSystem;
@@ -76,11 +80,32 @@ public class SoyPageGenerator {
 			String footer = "]]></response>";
 			return header+page+footer;
 		} else {
+			
+			SoyMapData jsData = getJsData();
+			System.out.println("js data : " + jsData);
+			mainPageData.put("jsData",jsData);
 			mainPageData.put("jsFiles", generateJavaScript());
 			mainPageData.put("cssFiles", generateCss());
 			renderer.setData(mainPageData);
-			return renderer.render();
+			String renderdd = renderer.render();
+			System.out.println("final render : " + renderdd);
+			return renderdd;
 		}
+	}
+	
+	private SoyMapData getJsData() {
+		SoyMapData jsData = new SoyMapData();
+		PersistenceAdapter pa = new PersistenceAdapter();
+		List<? extends JavaScriptBE> jsFiles = pa.getJavaScriptBEsForApp(appId);
+		for (JavaScriptBE jsFile : jsFiles) {
+			try {
+				String string = new String(jsFile.getJsData(), "UTF-8");
+				jsData.put(jsFile.getName(), string);
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
+		}
+		return jsData;
 	}
 	
 	protected String generateContent() {

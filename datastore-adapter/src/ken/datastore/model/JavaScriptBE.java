@@ -45,6 +45,7 @@ public class JavaScriptBE implements Serializable {
 	
 	public byte[] getJsData() {
 		return js.getBytes();
+		
 	}
 	
 	public void setJsData(byte[] js) {

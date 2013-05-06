@@ -32,6 +32,10 @@ public class AppServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		
+		resp.setStatus(HttpServletResponse.SC_OK);
+		resp.setHeader("Cache-Control", "no-cache, must-revalidate");
+		resp.setCharacterEncoding("UTF-8");
+		
 		final String appId = StringUtils.trimToEmpty(req.getParameter(FilterConstants.PARAM_APP_ID));
 		final String sid = StringUtils.trimToEmpty(req.getParameter(FilterConstants.PARAM_SCREEN_ID));
 		final AppConfig appConfig = (AppConfig) req.getAttribute(FilterConstants.PARAM_APP_CONFIG);
@@ -47,6 +51,7 @@ public class AppServlet extends HttpServlet {
 			AppController controller = new AppController(appId, sid, appConfig, userParameters, runtimeSystem, manifest);
 			String page = controller.doGenerate();
 			
+			LOG.info("string to output : " + page);
 			
 			writer.write(page);
 		} catch (Exception e) {
