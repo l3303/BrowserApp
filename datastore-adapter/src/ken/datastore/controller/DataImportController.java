@@ -17,7 +17,13 @@ public class DataImportController {
 	private String appId;
 	
 	public void importApp(String path) {
-		importManifest(path);
+		if (!path.endsWith("/")) {
+			path += "/";
+		}
+		File manifest = new File(path + "manifest.json");
+		if (manifest != null) {
+			importManifest(manifest);
+		}
 		if (appId != null && !appId.isEmpty()) {
 			File dir = new File(path);
 			File[] files = dir.listFiles();
@@ -30,9 +36,9 @@ public class DataImportController {
 		}
 	}
 	
-	private void importManifest(String path) {
+	private void importManifest(File manifest) {
 		try {
-			BufferedReader in = new BufferedReader(new FileReader(new File(path + "manifest.json")));
+			BufferedReader in = new BufferedReader(new FileReader(manifest));
 			
 			StringBuffer input = new StringBuffer();
 			String line = null;

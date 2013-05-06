@@ -62,9 +62,7 @@ public class DatastoreAPI {
 		}
 		
 		PersistenceAdapter pa = new PersistenceAdapter();
-		System.out.println("get js for name : " + jsName + " and app id : " + appId);
 		JavaScriptBE theJs = pa.getJavaScriptBE(jsName, appId);
-		System.out.println("result js : " + theJs);
 		if (theJs != null) {
 			LOG.info("Existing js entity found.");
 			if (!overwrite) {

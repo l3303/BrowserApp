@@ -47,15 +47,6 @@ public class DataImportServlet extends HttpServlet {
 			for (JavaScriptBE jsFile : jsFiles) {
 				System.out.println("js content: " + new String(jsFile.getJsData(), "UTF-8"));
 			}
-			
-//			JavaScriptBE theJs = pa.getJavaScriptBE("flights", "dummy_content");
-//			System.out.println("the js : " + theJs);
-//			if (theJs != null) {
-//				System.out.println("come in!!!");
-//				PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("transactions-optional");
-//				PersistenceManager pm = pmf.getPersistenceManager();
-//				pm.deletePersistent(theJs);
-//			}
 		}
 		resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
 	}
