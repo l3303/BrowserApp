@@ -1,11 +1,11 @@
 package ken.page;
 
-import java.io.File;
-import java.net.MalformedURLException;
 import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
+import ken.datastore.PersistenceAdapter;
 import ken.datastore.manifest.ManifestAdapter;
+import ken.datastore.model.JavaScriptBE;
 import ken.platform.AppConfig;
 import ken.server.content.ContentManager;
 import ken.server.environment.RuntimeSystem;
@@ -13,6 +13,7 @@ import ken.server.environment.RuntimeSystem;
 import com.google.appengine.labs.repackaged.org.json.JSONObject;
 import com.google.template.soy.SoyFileSet;
 import com.google.template.soy.SoyFileSet.Builder;
+import com.google.template.soy.data.SanitizedContent;
 import com.google.template.soy.data.SoyListData;
 import com.google.template.soy.data.SoyMapData;
 import com.google.template.soy.tofu.SoyTofu;
@@ -76,15 +77,30 @@ public class SoyPageGenerator {
 			String footer = "]]></response>";
 			return header+page+footer;
 		} else {
+			
+			SoyMapData jsData = getJsData();
+			System.out.println("js data : " + jsData);
+			mainPageData.put("jsData",jsData);
 			mainPageData.put("jsFiles", generateJavaScript());
 			mainPageData.put("cssFiles", generateCss());
 			renderer.setData(mainPageData);
-			return renderer.render();
+			String renderdd = renderer.render();
+			System.out.println("final render : " + renderdd);
+			return renderdd;
 		}
 	}
 	
+	private SoyMapData getJsData() {
+		SoyMapData jsData = new SoyMapData();
+		PersistenceAdapter pa = new PersistenceAdapter();
+		List<? extends JavaScriptBE> jsFiles = pa.getJavaScriptBEsForApp(appId);
+		for (JavaScriptBE jsFile : jsFiles) {
+			jsData.put(jsFile.getName(), jsFile.getJsAsString());
+		}
+		return jsData;
+	}
+	
 	protected String generateContent() {
-//		return new SoyMapData("content", "normal soy template content!!!!by ken!!!");
 		ContentManager manager = new ContentManager(runtimeSystem, appId, screenId, manifest);
 		try {
 			return manager.getContentMap(userParameter);

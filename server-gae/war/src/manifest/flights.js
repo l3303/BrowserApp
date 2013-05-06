@@ -1,1 +1,4 @@
-//just test if this js can upload
+//我艹
+function change() {
+	document.write("execute successfully!!!");
+}

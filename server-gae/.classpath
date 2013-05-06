@@ -7,5 +7,7 @@
 	<classpathentry kind="lib" path="war/WEB-INF/lib/soy-latest.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/SoyParseInfoGenerator.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/commons-lang3-3.1.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/compiler.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/htmlcompressor-1.5.3.jar"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>

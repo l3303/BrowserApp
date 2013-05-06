@@ -45,7 +45,7 @@ public class DatastoreAPI {
 	
 	public static JavaScriptBE importJavaScript(String jsName,
 			String appId,
-			byte[] jsData,
+			String jsString,
 			boolean overwrite) {
 		LOG.info("[jsName=" + jsName
 				+ "][appId=" + appId
@@ -75,7 +75,7 @@ public class DatastoreAPI {
 		}
 		theJs.setName(jsName);
 		theJs.setAppId(appId);
-		theJs.setJsData(jsData);
+		theJs.setJs(jsString);
 		pa.makePersistent(theJs);
 		
 		return theJs;

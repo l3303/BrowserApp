@@ -10,6 +10,7 @@ import javax.jdo.annotations.PrimaryKey;
 
 import com.google.appengine.api.datastore.Blob;
 import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.Text;
 
 @PersistenceCapable(identityType = IdentityType.APPLICATION, cacheable="true")
 public class JavaScriptBE implements Serializable {
@@ -18,8 +19,8 @@ public class JavaScriptBE implements Serializable {
 	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
 	private Key key;
 	
-	@Persistent
-	private Blob js;
+	@Persistent(serialized = "true")
+	private Text js;
 	
 	@Persistent
 	private String name;
@@ -35,20 +36,20 @@ public class JavaScriptBE implements Serializable {
 		this.key = key;
 	}
 
-	public Blob getJs() {
+	public Text getJs() {
 		return js;
 	}
 
-	public void setJs(Blob js) {
+	public void setJs(Text js) {
 		this.js = js;
 	}
 	
-	public byte[] getJsData() {
-		return js.getBytes();
+	public String getJsAsString() {
+		return js.getValue();
 	}
 	
-	public void setJsData(byte[] js) {
-		this.js = new Blob(js);
+	public void setJs(String js) {
+		this.js = new Text(js);
 	}
 
 	public String getName() {

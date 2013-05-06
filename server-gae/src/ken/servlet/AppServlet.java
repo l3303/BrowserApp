@@ -18,6 +18,7 @@ import ken.controller.AppController;
 import ken.filter.FilterConstants;
 import ken.platform.AppConfig;
 import ken.server.environment.RuntimeSystem;
+import ken.util.WebPageCompressor;
 
 import com.google.appengine.labs.repackaged.org.json.JSONObject;
 import com.google.template.soy.SoyFileSet;
@@ -31,6 +32,10 @@ public class AppServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
+		
+		resp.setStatus(HttpServletResponse.SC_OK);
+		resp.setHeader("Cache-Control", "no-cache, must-revalidate");
+		resp.setCharacterEncoding("UTF-8");
 		
 		final String appId = StringUtils.trimToEmpty(req.getParameter(FilterConstants.PARAM_APP_ID));
 		final String sid = StringUtils.trimToEmpty(req.getParameter(FilterConstants.PARAM_SCREEN_ID));
@@ -47,8 +52,11 @@ public class AppServlet extends HttpServlet {
 			AppController controller = new AppController(appId, sid, appConfig, userParameters, runtimeSystem, manifest);
 			String page = controller.doGenerate();
 			
+			LOG.info("string to output : " + page);
 			
-			writer.write(page);
+			page = page.trim();
+			
+			writer.write(WebPageCompressor.compressHtml(page));
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
