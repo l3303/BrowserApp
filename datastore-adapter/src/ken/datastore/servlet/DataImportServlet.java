@@ -35,7 +35,7 @@ public class DataImportServlet extends HttpServlet {
 			PersistenceAdapter pa = new PersistenceAdapter();
 //			AppConfigurationBE theFile = pa.getAppConfigurationBE("dummy_content");
 //			System.out.println("get manifest form datastore: " + theFile.getManifest());
-			
+//			
 //			if (theFile != null) {
 //				System.out.println("get manifest form datastore: " + theFile);
 //			} else {
@@ -45,7 +45,7 @@ public class DataImportServlet extends HttpServlet {
 			List<? extends JavaScriptBE> jsFiles = pa.getJavaScriptBEsForApp("dummy_content");
 			System.out.println("count of js get for app: " + jsFiles.size());
 			for (JavaScriptBE jsFile : jsFiles) {
-				System.out.println("js content: " + new String(jsFile.getJsData(), "UTF-8"));
+				System.out.println("js content: " + jsFile.getJsAsString());
 			}
 		}
 		resp.setStatus(HttpServletResponse.SC_FORBIDDEN);

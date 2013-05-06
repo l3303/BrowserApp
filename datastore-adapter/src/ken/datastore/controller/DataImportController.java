@@ -64,22 +64,20 @@ public class DataImportController {
 			
 			int len = 0;
 			while ((len = in.read(buffer)) != -1) {
-				out.write(buffer);
+				System.out.println("file length: " + len);
+				if (len < bufferSize) {
+					for (int i = 0; i < len; i++) {
+						out.write(buffer[i]);
+					}
+				} else {
+					out.write(buffer);
+				}
 			}
 			
 			in.close();
 			out.close();
-//			BufferedReader in = new BufferedReader(new FileReader(jsFile));
-//			StringBuffer input = new StringBuffer();
-//			String line = null;
-//			while ((line = in.readLine()) != null) {
-//				input.append(line);
-//			}
-//			in.close();
-//			
-//			byte[] data = (new String(input)).getBytes();
-			
-			JavaScriptBE js = DatastoreAPI.importJavaScript(jsFile.getName(), appId, out.toByteArray(), true);
+						
+			JavaScriptBE js = DatastoreAPI.importJavaScript(jsFile.getName(), appId, new String(out.toByteArray(), "UTF-8"), true);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -1,11 +1,7 @@
 package ken.page;
 
-import java.io.File;
-import java.io.UnsupportedEncodingException;
-import java.net.MalformedURLException;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import ken.datastore.PersistenceAdapter;
 import ken.datastore.manifest.ManifestAdapter;
@@ -17,6 +13,7 @@ import ken.server.environment.RuntimeSystem;
 import com.google.appengine.labs.repackaged.org.json.JSONObject;
 import com.google.template.soy.SoyFileSet;
 import com.google.template.soy.SoyFileSet.Builder;
+import com.google.template.soy.data.SanitizedContent;
 import com.google.template.soy.data.SoyListData;
 import com.google.template.soy.data.SoyMapData;
 import com.google.template.soy.tofu.SoyTofu;
@@ -98,18 +95,12 @@ public class SoyPageGenerator {
 		PersistenceAdapter pa = new PersistenceAdapter();
 		List<? extends JavaScriptBE> jsFiles = pa.getJavaScriptBEsForApp(appId);
 		for (JavaScriptBE jsFile : jsFiles) {
-			try {
-				String string = new String(jsFile.getJsData(), "UTF-8");
-				jsData.put(jsFile.getName(), string);
-			} catch (UnsupportedEncodingException e) {
-				e.printStackTrace();
-			}
+			jsData.put(jsFile.getName(), jsFile.getJsAsString());
 		}
 		return jsData;
 	}
 	
 	protected String generateContent() {
-//		return new SoyMapData("content", "normal soy template content!!!!by ken!!!");
 		ContentManager manager = new ContentManager(runtimeSystem, appId, screenId, manifest);
 		try {
 			return manager.getContentMap(userParameter);

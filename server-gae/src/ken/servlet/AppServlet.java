@@ -18,6 +18,7 @@ import ken.controller.AppController;
 import ken.filter.FilterConstants;
 import ken.platform.AppConfig;
 import ken.server.environment.RuntimeSystem;
+import ken.util.WebPageCompressor;
 
 import com.google.appengine.labs.repackaged.org.json.JSONObject;
 import com.google.template.soy.SoyFileSet;
@@ -53,7 +54,9 @@ public class AppServlet extends HttpServlet {
 			
 			LOG.info("string to output : " + page);
 			
-			writer.write(page);
+			page = page.trim();
+			
+			writer.write(WebPageCompressor.compressHtml(page));
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

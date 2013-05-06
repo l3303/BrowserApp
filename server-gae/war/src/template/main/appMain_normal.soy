@@ -18,7 +18,7 @@
        		{foreach $jsName in keys($jsData)}
 	            <script type="text/javascript" id="{$jsName}">
 //	            	{$jsData[$jsName]|noAutoescape}
-					{$jsData[$jsName].js}
+					{$jsData[$jsName].js|noAutoescape}
 	            </script>
         	{/foreach} 
 		</head>
