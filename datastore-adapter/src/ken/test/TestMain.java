@@ -2,7 +2,6 @@ package ken.test;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 
 import ken.datastore.manifest.ManifestAdapter;
@@ -35,7 +34,14 @@ public class TestMain {
 //			System.out.println("url : " + adapter.getSourceUrl("flights_list", true));
 //			System.out.println("main page: " + adapter.getMainPage());
 			
-			ManifestValidator.validate(manifest);
+//			ManifestValidator.validate(manifest);
+			
+			File file = new File("/Users/liuken3303/Desktop/KEN_PIC");
+			System.out.println("is directory?  " + file.isDirectory());
+			String[] files = file.list();
+			for (int i = 0; i < files.length; i++) {
+				System.out.println("get files ?  " + files[i]);
+			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -8,24 +8,32 @@ import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Query;
 
 import ken.datastore.model.AppConfigurationBE;
+import ken.datastore.model.ImageBE;
+import ken.datastore.model.JavaScriptBE;
 
 public class PersistenceAdapter {
 	
 	protected Class<? extends AppConfigurationBE> appConfigurationBEClass;
+	protected Class<? extends JavaScriptBE> javaScriptBEClass;
+	protected Class<? extends ImageBE> imageBEClass;
 	
 	protected PersistenceManager persistenceManager;
 	
 	protected PersistenceManagerFactory pmf;
 	
 	public PersistenceAdapter(
-			Class<? extends AppConfigurationBE> appConfigurationBEClass) {
+			Class<? extends AppConfigurationBE> appConfigurationBEClass,
+			Class<? extends JavaScriptBE> javascriptBEClass,
+			Class<? extends ImageBE> imageBEClass) {
 		this.appConfigurationBEClass = appConfigurationBEClass;
+		this.javaScriptBEClass = javascriptBEClass;
+		this.imageBEClass = imageBEClass;
 		pmf = getPersistenceManagerFactory();
 		persistenceManager = pmf.getPersistenceManager();
 	}
 	
 	public PersistenceAdapter() {
-		this(AppConfigurationBE.class);
+		this(AppConfigurationBE.class, JavaScriptBE.class, ImageBE.class);
 	}
 	
 	protected PersistenceManagerFactory getPersistenceManagerFactory() {
@@ -79,8 +87,32 @@ public class PersistenceAdapter {
 		return queryOne(this.appConfigurationBEClass, "appId == appIdentifier", "String appIdentifier", new Object[]{appId});
 	}
 	
+	public JavaScriptBE getJavaScriptBE(String name, String appId) {
+		return queryOne(this.javaScriptBEClass, "name == jsName && appId == appName", "String jsName, String appName", new Object[]{name, appId});
+	}
+	
+	public List<? extends JavaScriptBE> getJavaScriptBEsForApp(String appId) {
+		return query(this.javaScriptBEClass, "appId == appName", "String appName", new Object[]{appId});		
+	}
+	
+	public ImageBE getImageBE(String name, String appId) {
+		return queryOne(this.imageBEClass, "name == imgName && appId == appName", "String imgName, String appName", new Object[]{name, appId});
+	}
+	
+	public ImageBE getImageBE(String name) {
+		return getImageBE(name, null);
+	}
+	
 	public AppConfigurationBE createAppConfigurationBE() {
 		return createInstance(this.appConfigurationBEClass);
+	}
+	
+	public JavaScriptBE createJavaScriptBE() {
+		return createInstance(this.javaScriptBEClass);
+	}
+	
+	public ImageBE createImageBE() {
+		return createInstance(this.imageBEClass);
 	}
 	
 	protected <T> T createInstance(Class<T> cls) {

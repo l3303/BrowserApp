@@ -44,11 +44,6 @@ public class SoyPageGenerator {
 		
 		Builder builder = new SoyFileSet.Builder();
 		
-		/*
-		 * TODO:
-		 * get templateName according appId & screenId
-		 * */
-		
 		if (ajax) {
 			ManifestAdapter adapter = new ManifestAdapter(manifest);
 			try {
