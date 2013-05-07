@@ -100,7 +100,7 @@ public class PersistenceAdapter {
 	}
 	
 	public ImageBE getImageBE(String name) {
-		return getImageBE(name, null);
+		return queryOne(this.imageBEClass, "name == imgName", "String imgName", new Object[]{name});
 	}
 	
 	public AppConfigurationBE createAppConfigurationBE() {

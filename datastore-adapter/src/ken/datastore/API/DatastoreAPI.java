@@ -81,13 +81,12 @@ public class DatastoreAPI {
 		return theJs;
 	}
 	
-	public final ImageBE importImage(final String imgName, final String appId,
+	public static ImageBE importImage(final String imgName, final String appId,
 			final byte[] imgData,
 			final boolean overwrite) {
 
 		LOG.info("[imgName=" + imgName
 				+ "][appId=" + appId
-				+ "][imgData=" + imgData
 				+ "][overwrite=" + overwrite
 				+ "]");
 

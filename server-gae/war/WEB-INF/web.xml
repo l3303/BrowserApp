@@ -28,6 +28,14 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<servlet-name>DataImportServlet</servlet-name>
 		<url-pattern>/services/ken/admin/</url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<servlet-name>ImageServlet</servlet-name>
+		<servlet-class>ken.servlet.ImageServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ImageServlet</servlet-name>
+		<url-pattern>/services/image/</url-pattern>
+	</servlet-mapping>
 	
 	
 	<filter>

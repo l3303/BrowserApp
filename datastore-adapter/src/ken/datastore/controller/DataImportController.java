@@ -10,6 +10,7 @@ import java.io.InputStream;
 
 import ken.datastore.API.DatastoreAPI;
 import ken.datastore.model.AppConfigurationBE;
+import ken.datastore.model.ImageBE;
 import ken.datastore.model.JavaScriptBE;
 
 public class DataImportController {
@@ -31,6 +32,8 @@ public class DataImportController {
 				File file = files[i];
 				if (file.isFile() && file.getName().endsWith(".js")) {
 					importJS(file);
+				} else if (file.isFile() && file.getName().endsWith(".png")) {
+					importImage(file);
 				}
 			}
 		}
@@ -78,6 +81,34 @@ public class DataImportController {
 			out.close();
 						
 			JavaScriptBE js = DatastoreAPI.importJavaScript(jsFile.getName(), appId, new String(out.toByteArray(), "UTF-8"), true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void importImage(File imageFile) {
+		final ByteArrayOutputStream out = new ByteArrayOutputStream();
+		try {
+			InputStream in = new FileInputStream(imageFile);
+			final int bufferSize = 1024;
+			final byte[] buffer = new byte[bufferSize];
+			
+			int len = 0;
+			while ((len = in.read(buffer)) != -1) {
+				System.out.println("file length: " + len);
+				if (len < bufferSize) {
+					for (int i = 0; i < len; i++) {
+						out.write(buffer[i]);
+					}
+				} else {
+					out.write(buffer);
+				}
+			}
+			
+			in.close();
+			out.close();
+						
+			ImageBE js = DatastoreAPI.importImage(imageFile.getName(), appId, out.toByteArray(), true);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
