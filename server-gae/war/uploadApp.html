@@ -1,0 +1,25 @@
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>Upload manifest for app</title>
+    <script type="text/javascript" src="src/lib/javascript/jquery.min.js"></script>
+  </head>
+
+  <body>
+  	<script type="text/javascript">
+  		var num = 1;
+  		function addOneMore() {
+  			num++;
+  			var elem = $("<div id=\"" + num + "\">选择文件:<input type=\"file\" name=\"fileupload\"></div>");
+  			elem.insertAfter("#" + (num - 1));
+  		}
+  	</script>
+  	<form action="upload_test" method="post" enctype="multipart/form-data">
+  		<div id="1">
+  			选择文件:<input type="file" name="fileupload">
+  		</div>
+		<input type="submit" value="提交">
+		<input type="button" value="再添加一个文件" onclick="addOneMore()">
+  	</form>
+  </body>
+</html>

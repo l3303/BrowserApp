@@ -16,8 +16,8 @@ import org.apache.commons.lang3.StringUtils;
 public class ImageServlet extends HttpServlet {
 
 	private static final Logger LOG = Logger.getLogger(ImageServlet.class.getName());
-	private static final String SERVLET_NAME = "image";
-	private static final String SERVLET_PATH = "services/" + SERVLET_NAME;
+	public static final String SERVLET_NAME = "image";
+	public static final String SERVLET_PATH = "/services/" + SERVLET_NAME;
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)

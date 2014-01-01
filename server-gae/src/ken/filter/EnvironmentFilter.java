@@ -43,7 +43,11 @@ public class EnvironmentFilter implements Filter {
 			runtimeSystem.setProtocol(ServerProtocol.HTTP);
 		}
 		
-		runtimeSystem.setBaseUrl(req.getServerName() + ":" + req.getServerPort());
+		if (req.getServerName().contains("localhost")) {
+			runtimeSystem.setBaseUrl(req.getServerName() + ":" + req.getServerPort());
+		} else {
+			runtimeSystem.setBaseUrl(req.getServerName());
+		}
 		runtimeSystem.setContextPath(req.getContextPath());
 		runtimeSystem.setServletPath(req.getServletPath());
 		LOG.info("environment generate runtime system : " + runtimeSystem.toString());

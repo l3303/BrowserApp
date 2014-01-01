@@ -44,11 +44,11 @@ public class ManifestAdapter {
 		return getHeader().getString(ManifestConstants.KEY_MAIN_PAGE);
 	}
 	
-	private JSONObject getHeader() throws JSONException {
+	public JSONObject getHeader() throws JSONException {
 		return manifest.getJSONObject(ManifestConstants.KEY_HEDAER);
 	}
 	
-	private JSONObject getScreen() throws JSONException {
+	public JSONObject getScreen() throws JSONException {
 		return manifest.getJSONObject(ManifestConstants.KEY_SCREENS);
 	}
 }

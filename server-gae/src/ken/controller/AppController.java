@@ -2,6 +2,7 @@ package ken.controller;
 
 import java.util.HashMap;
 
+import com.google.appengine.labs.repackaged.org.json.JSONException;
 import com.google.appengine.labs.repackaged.org.json.JSONObject;
 
 import ken.page.IOSSoyPageGenerator;
@@ -30,7 +31,7 @@ public class AppController {
 		this.manifest = manifest;
 	}
 	
-	public String doGenerate() {
+	public String doGenerate() throws JSONException {
 		SoyPageGenerator pageGenerator = SoyPageGeneratorFactory.getGenerator(appConfig, appId, sid, userParameters, runtimeSystem, manifest);
 		return pageGenerator.generatePage();
 	}

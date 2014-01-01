@@ -9,7 +9,10 @@ import ken.datastore.model.JavaScriptBE;
 import ken.platform.AppConfig;
 import ken.server.content.ContentManager;
 import ken.server.environment.RuntimeSystem;
+import ken.servlet.ImageServlet;
+import ken.util.JsonMapConverter;
 
+import com.google.appengine.labs.repackaged.org.json.JSONException;
 import com.google.appengine.labs.repackaged.org.json.JSONObject;
 import com.google.template.soy.SoyFileSet;
 import com.google.template.soy.SoyFileSet.Builder;
@@ -67,23 +70,47 @@ public class SoyPageGenerator {
 		
 		SoyMapData mainPageData = new SoyMapData();
 		
+		String AbsoluteBaseUrl = runtimeSystem.getProtocol() + runtimeSystem.getBaseUrl();
+		SoyMapData serverInfo = new SoyMapData(
+				"baseUrl", AbsoluteBaseUrl,
+				"imageServlet", AbsoluteBaseUrl + ImageServlet.SERVLET_PATH + "/",
+				"contextPath", runtimeSystem.getContextPath(),
+				"appServlet", runtimeSystem.getServletPath());
+		
+		SoyMapData platformInfo = new SoyMapData(
+				"platform", config.getPlatform(),
+				"environment", config.getEnvironment());
+		
+		SoyMapData mHeader = null;
+		try {
+			mHeader = json2SoyMapData(new ManifestAdapter(manifest).getHeader());
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		SoyMapData ijData = new SoyMapData(
+				"serverInfo", serverInfo,
+				"platformInfo", platformInfo,
+				"header", mHeader);
+		
 		if (ajax) {
 			String content = generateContent();
 			mainPageData.put("content", content);
 			renderer.setData(mainPageData);
+			renderer.setIjData(ijData);
 			String page = renderer.render();
 			System.out.println("recognized ajax mode!!");
 			String header = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?><response status=\"200\"><![CDATA[";
 			String footer = "]]></response>";
 			return header+page+footer;
 		} else {
-			
 			SoyMapData jsData = getJsData();
 			System.out.println("js data : " + jsData);
 			mainPageData.put("jsData",jsData);
 			mainPageData.put("jsFiles", generateJavaScript());
 			mainPageData.put("cssFiles", generateCss());
 			renderer.setData(mainPageData);
+			renderer.setIjData(ijData);
 			String renderdd = renderer.render();
 			System.out.println("final render : " + renderdd);
 			return renderdd;
@@ -134,5 +161,16 @@ public class SoyPageGenerator {
 	
 	private String getResourcePath() {
 		return getBaseUrl() + "/" + RESOURCE_PATH;
+	}
+	
+	private SoyMapData json2SoyMapData(JSONObject obj) {
+		if (obj != null) {
+			try {
+				return new SoyMapData(new JsonMapConverter(obj).toJSON());
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
+		return new SoyMapData();
 	}
 }

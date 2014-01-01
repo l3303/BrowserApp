@@ -25,6 +25,11 @@
 		<body>
 			css js test!!!
 			<a onclick="change()">click</a>
+			
+			<div>
+				{$ij.serverInfo.baseUrl}  {$ij.serverInfo.imageServlet}  ?appId={$ij.header.id}&img={$ij.header.icon}
+			</div>
+			<img src="{$ij.serverInfo.imageServlet}?appId={$ij.header.id}&img={$ij.header.icon}">
 		</body>
 	</html>
 {/template}

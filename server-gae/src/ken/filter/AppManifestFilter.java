@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import ken.datastore.PersistenceAdapter;
+import ken.datastore.manifest.ManifestJsonFormator;
 import ken.datastore.model.AppConfigurationBE;
 
 import org.apache.commons.lang3.StringUtils;
@@ -47,13 +48,13 @@ public class AppManifestFilter implements Filter {
 				return;
 			}
 			
-			final JSONObject manifest = new JSONObject(config.getManifest());
+			final JSONObject manifest = ManifestJsonFormator.formatToJson(config.getManifest());
 			LOG.info("Successfully load manifest: " + manifest);
 			
 			req.setAttribute("manifest", manifest);
 			
 			chain.doFilter(pReq, pResp);
-		} catch (JSONException e) {
+		} catch (Exception e) {
 			LOG.info("error when parser to json object!!!");
 			e.printStackTrace();
 		}

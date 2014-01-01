@@ -36,6 +36,14 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<servlet-name>ImageServlet</servlet-name>
 		<url-pattern>/services/image/</url-pattern>
 	</servlet-mapping>
+		<servlet>
+		<servlet-name>UploadTest</servlet-name>
+		<servlet-class>ken.servlet.UploadTest</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>UploadTest</servlet-name>
+		<url-pattern>/upload_test</url-pattern>
+	</servlet-mapping>
 	
 	
 	<filter>
